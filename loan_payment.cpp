@@ -18,7 +18,7 @@ int main() {
     std::cout << "Enter the number of times interest is compounded per year: ";
     std::cin >> times_compounded;
 
-    // Conversions and calculations
+    // Convert the percentage entered by the user into decimal form before using the formula.
     double decimal_rate = input_rate / 100.0;
     
     // Formula: amount = principal * (1 + rate / times_compounded) ^ times_compounded
