@@ -85,7 +85,64 @@ Amount in Savings: $1,685.96
 
 Results are as expected.
 
-## 4 - EXPLAINING compound_interest.cpp
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# 1 - Plan for loan_payment.cpp
+
+# Overview
+This program will calculate the Loan Monthly Payments.
+
+### Input:
+loan_amount: Total principal borrowed ($) (double)
+annual_rate: Annual interest rate as a raw percentage (e.g., 12.0 for 12%) (double)
+number_of_payments: Total number of monthly repayment periods (int)
+
+### Percentage Conversions
+Convert annual rate to a monthly decimal rate by dividing by 100 and dividing by the 12 calendar months:
+monthly_rate = annual_rate / 100.0 / 12.0
+
+### Intermediate Variables
+monthly_rate: The calculated monthly interest (double)
+rate_pow: The pre-calculated exponential factor (double):
+rate_pow = std::pow(1.0 + monthly_rate, number_of_payments)
+
+### Formulas
+**Monthly Payment Calculation:**
+monthly_payment = (monthly_rate * rate_pow) / (rate_pow - 1.0) * loan_amount
+double rate_pow = std::pow(1.0 + monthly_rate, number_of_payments);
+monthly_payment = (monthly_rate * rate_pow) / (rate_pow - 1.0) * loan_amount;
+   
+**Total Amortization:**
+amount_paid_back = monthly_payment * number_of_payments;
+    
+**Interest Paid:**
+interest_paid = amount_paid_back - loan_amount;
+
+### Output
+A table formatted to two decimal points showing:
+Loan Amount ($)
+Monthly Interest Rate (%)
+Number of Payments
+Monthly Payment ($)
+Amount Paid Back ($)
+Net Interest Paid ($)
+
+### 2 - TEST PROGRAM
+**Test 1: Long Term Loan**
+Inputs: Loan Amount = $10000.00, Annual Rate = 12.0%, Total Payments = 36
+Expected interest: monthly_rate = 0.01 (1% per month)
+Expected Outputs: Monthly Payment = $332.14, Total Paid Back = $11957.15, Interest Paid = $1957.15
+The program run as expected, returning the right values.
+
+**Test 2: Short-Term Loan**
+Inputs: Loan Amount = $1200.00, Annual Rate = 6.0%, Total Payments = 12
+Expected Mid-point Precision: monthly_rate = 0.005 (0.5% per month)
+Expected Outputs: Monthly Payment = $103.28, Total Paid Back = $1239.36, Interest Paid = $39.36
+The program run as expected, returning the right values.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## EXPLAINING the Code
 
 ### 1. Why must a percentage be divided by 100 before using it in a formula?
 A percentage is way to express a fraction out of 100. 
